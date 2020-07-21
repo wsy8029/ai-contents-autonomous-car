@@ -3,10 +3,15 @@ import tensorflow.keras
 from PIL import Image, ImageOps
 import numpy as np
 import modi
+from IPython.display import clear_output
 
 class AutonomousCar(object):
 
     def __init__(self):
+        self.classes = [
+            "Hun",
+            "Red"
+        ]
         # Disable scientific notation for clarity
         np.set_printoptions(suppress=True)
 
@@ -52,15 +57,19 @@ class AutonomousCar(object):
             self.data[0] = normalized_image_array
 
             # run the inference
-            prediction = self.model.predict(self.data)
+            # prediction = self.model.predict(self.data)
             pred = self.model.predict_classes(self.data)
-            print(prediction)
-            print(pred)
+            # print(prediction)
+            pred_class = self.classes[pred[0]]
+            print("Predicted Class : ", pred_class)
+            clear_output(wait=True)
 
-            mot.speed = 30,30
+            # mot.speed = 30,30
 
-
-
+            if pred_class == 'Hun':
+                mot.speed = 0,0
+            elif pred_class == 'Red':
+                mot.speed = 40, -40
 
 
 
