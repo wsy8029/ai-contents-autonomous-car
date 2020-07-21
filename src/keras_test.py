@@ -2,15 +2,6 @@ import tensorflow.keras
 from PIL import Image, ImageOps
 import numpy as np
 
-class AutonomousCar(object):
-
-    def __init__(self):
-        
-
-    def start_car(self):
-
-
-
 
 # Disable scientific notation for clarity
 np.set_printoptions(suppress=True)
