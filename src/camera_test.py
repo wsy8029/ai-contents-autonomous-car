@@ -1,6 +1,6 @@
 import cv2
 
-camera = cv2.VideoCapture(-1)
+camera = cv2.VideoCapture(0)
 
 while camera.isOpened():
     _,frame = camera.read()
