@@ -4,6 +4,7 @@ from PIL import Image, ImageOps
 import numpy as np
 import modi
 from IPython.display import clear_output
+import time
 
 class AutonomousCar(object):
 
@@ -12,6 +13,13 @@ class AutonomousCar(object):
             "Hun",
             "Red"
         ]
+
+        # Initialize VideoCapture object
+        self.camera = cv2.VideoCapture(0)
+        self.camera.set(3, 224)
+        self.camera.set(4, 224)
+        self.camera.set(5, 60)
+
         # Disable scientific notation for clarity
         np.set_printoptions(suppress=True)
 
@@ -24,16 +32,13 @@ class AutonomousCar(object):
         self.data = np.ndarray(shape=(1, 224, 224, 3), dtype=np.float32)
 
 
-    def start_car(self,mot):
+    def start_car(self,mot, btn):
 
-        camera = cv2.VideoCapture(0)
-        camera.set(3, 224)
-        camera.set(4, 224)
-        camera.set(5, 60)
 
-        while camera.isOpened():
-            _, frame = camera.read()
-            cv2.imshow("frame", frame)
+
+        while self.camera.isOpened():
+            _, frame = self.camera.read()
+            # cv2.imshow("frame", frame)
 
             # Replace this with the path to your image
             # image = Image.open('/Users/peter/Repos/ai-curriculum-autonomous-car/car_hun/21.jpg')
@@ -71,11 +76,15 @@ class AutonomousCar(object):
             elif pred_class == 'Red':
                 mot.speed = 40, -40
 
-
+            if btn.clicked:
+                mot.speed = 0,0
+                # self.camera.release()
+                cv2.destroyAllWindows()
+                break
 
             if cv2.waitKey(1) & 0xFF == ord('q'):
                 mot.speed = 0,0
-                camera.release()
+                self.camera.release()
                 cv2.destroyAllWindows()
                 break
 
@@ -84,8 +93,21 @@ def main():
     car = AutonomousCar()
     bundle = modi.MODI()
     mot = bundle.motors[0]
+    btn = bundle.buttons[0]
 
-    car.start_car(mot)
+    # Indicator for ready
+    mot.speed = 60,-60
+    time.sleep(0.3)
+    mot.speed = 0,0
+
+    # car.start_car(mot, btn)
+
+    while True:
+        time.sleep(0.01)
+        if btn.double_clicked:
+            time.sleep(0.01)
+            car.start_car(mot,btn)
+
 
 
 

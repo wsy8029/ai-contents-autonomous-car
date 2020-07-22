@@ -1,7 +1,7 @@
 import cv2
 import os
 
-camera = cv2.VideoCapture(-1)
+camera = cv2.VideoCapture(0)
 camera.set(3,320)
 camera.set(4,240)
 
