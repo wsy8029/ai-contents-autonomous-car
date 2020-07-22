@@ -33,7 +33,7 @@ class AutonomousCar(object):
 
 
     def start_car(self,mot, btn):
-
+        
 
 
         while self.camera.isOpened():
@@ -105,6 +105,7 @@ def main():
     while True:
         time.sleep(0.01)
         if btn.double_clicked:
+            print("클릭")
             time.sleep(0.01)
             car.start_car(mot,btn)
 
