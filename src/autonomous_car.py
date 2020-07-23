@@ -10,7 +10,7 @@ class AutonomousCar(object):
 
     def __init__(self):
         self.classes = [
-            "Hun",
+            "Green",
             "Red"
         ]
 
@@ -24,7 +24,7 @@ class AutonomousCar(object):
         np.set_printoptions(suppress=True)
 
         # Load the model
-        self.model = tensorflow.keras.models.load_model('../model/keras_model.h5')
+        self.model = tensorflow.keras.models.load_model('/home/pi/workspace/ai-contents-autonomous-car/model/keras_model.h5')
 
         # Create the array of the right shape to feed into the keras model
         # The 'length' or number of images you can put into the array is
@@ -71,10 +71,10 @@ class AutonomousCar(object):
 
             # mot.speed = 30,30
 
-            if pred_class == 'Hun':
-                mot.speed = 0,0
+            if pred_class == 'Green':
+                mot.speed = -40, 40
             elif pred_class == 'Red':
-                mot.speed = 40, -40
+                mot.speed = 0, 0
 
             if btn.clicked:
                 mot.speed = 0,0
