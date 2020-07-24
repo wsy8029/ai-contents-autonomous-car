@@ -10,10 +10,10 @@ from usb import core
 
 class AICamera:
     def __init__(self):
-        if not self.is_ai_cam_connected():
-            raise AIModuleFaultsException(
-                "Cannot find MODI AI Camera! Please connect USB Camera"
-            )
+#         if not self.is_ai_cam_connected():
+#             raise AIModuleFaultsException(
+#                 "Cannot find MODI AI Camera! Please connect USB Camera"
+#             )
 
         self.cap = cv2.VideoCapture(0)
         # init video codec for raspberry pi
