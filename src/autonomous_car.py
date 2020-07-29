@@ -16,9 +16,9 @@ class AutonomousCar(object):
 
         # Initialize VideoCapture object
         self.camera = cv2.VideoCapture(0)
-        self.camera.set(3, 224)
-        self.camera.set(4, 224)
-        self.camera.set(5, 60)
+        self.camera.set(3, 640)
+        self.camera.set(4, 480)
+#         self.camera.set(5, 60)
 
         # Disable scientific notation for clarity
         np.set_printoptions(suppress=True)
@@ -38,6 +38,8 @@ class AutonomousCar(object):
 
         while self.camera.isOpened():
             _, frame = self.camera.read()
+            frame = cv2.flip(frame, 1)
+            frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
             # cv2.imshow("frame", frame)
 
             # Replace this with the path to your image
@@ -62,9 +64,9 @@ class AutonomousCar(object):
             self.data[0] = normalized_image_array
 
             # run the inference
-            # prediction = self.model.predict(self.data)
+            prediction = self.model.predict(self.data)
             pred = self.model.predict_classes(self.data)
-            # print(prediction)
+            print(prediction)
             pred_class = self.classes[pred[0]]
             print("Predicted Class : ", pred_class)
             clear_output(wait=True)
